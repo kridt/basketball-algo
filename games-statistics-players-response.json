@@ -1,0 +1,1132 @@
+{
+  "get": "games",
+  "parameters": {
+    "id": "372188"
+  },
+  "errors": [],
+  "results": 33,
+  "response": [
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 670,
+        "name": "Thompson Klay"
+      },
+      "type": "starters",
+      "minutes": "12:54",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 7,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 4,
+        "attempts": 6,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 4
+      },
+      "assists": 0,
+      "points": 10
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 676,
+        "name": "Wiggins Andrew"
+      },
+      "type": "starters",
+      "minutes": "13:42",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 1,
+        "attempts": 4,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 4,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 3
+      },
+      "assists": 0,
+      "points": 6
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 660,
+        "name": "Looney Kevon"
+      },
+      "type": "starters",
+      "minutes": "12:54",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 5
+      },
+      "assists": 1,
+      "points": 4
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 664,
+        "name": "Paul Chris"
+      },
+      "type": "starters",
+      "minutes": "12:54",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 1,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 2,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 4
+      },
+      "assists": 5,
+      "points": 6
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 661,
+        "name": "Curry Stephen"
+      },
+      "type": "starters",
+      "minutes": "12:54",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 5,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 2
+      },
+      "assists": 1,
+      "points": 8
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 15288,
+        "name": "K. Davis"
+      },
+      "type": "bench",
+      "minutes": "8:22",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 2,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 2
+      },
+      "assists": 2,
+      "points": 5
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 658,
+        "name": "Garuba Usman"
+      },
+      "type": "bench",
+      "minutes": "5:39",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 2
+      },
+      "assists": 0,
+      "points": 0
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 671,
+        "name": "Gay Rudy"
+      },
+      "type": "bench",
+      "minutes": "6:34",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 2,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 1,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 4
+      },
+      "assists": 0,
+      "points": 4
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 659,
+        "name": "Jackson-Davis Trayce"
+      },
+      "type": "bench",
+      "minutes": "14:45",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 1
+      },
+      "assists": 1,
+      "points": 0
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 3501,
+        "name": "Johnson Javan"
+      },
+      "type": "bench",
+      "minutes": "9:19",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 1,
+        "attempts": 3,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 1
+      },
+      "assists": 1,
+      "points": 5
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 673,
+        "name": "Kuminga Jonathan"
+      },
+      "type": "bench",
+      "minutes": "23:34",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 4,
+        "attempts": 8,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 4,
+        "attempts": 5,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 8
+      },
+      "assists": 4,
+      "points": 24
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 663,
+        "name": "Moody Moses"
+      },
+      "type": "bench",
+      "minutes": "24:21",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 6,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 4
+      },
+      "assists": 2,
+      "points": 15
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 665,
+        "name": "Payton Gary"
+      },
+      "type": "bench",
+      "minutes": "10:18",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 1,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 1
+      },
+      "assists": 1,
+      "points": 4
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 666,
+        "name": "Podziemski Brandin"
+      },
+      "type": "bench",
+      "minutes": "26:18",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 6
+      },
+      "assists": 4,
+      "points": 11
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 667,
+        "name": "Quinones Lester"
+      },
+      "type": "bench",
+      "minutes": "11:32",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 2,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 3
+      },
+      "assists": 1,
+      "points": 2
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 668,
+        "name": "Robinson Jerome"
+      },
+      "type": "bench",
+      "minutes": "10:03",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 1,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 2,
+        "attempts": 3,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 4
+      },
+      "assists": 1,
+      "points": 8
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 675,
+        "name": "Saric Dario"
+      },
+      "type": "bench",
+      "minutes": "14:42",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 3,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 4
+      },
+      "assists": 3,
+      "points": 6
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 141
+      },
+      "player": {
+        "id": 15314,
+        "name": "D. Williams"
+      },
+      "type": "bench",
+      "minutes": "9:15",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 1,
+        "attempts": 1,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 3
+      },
+      "assists": 0,
+      "points": 7
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 746,
+        "name": "Hachimura Rui"
+      },
+      "type": "starters",
+      "minutes": "21:16",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 1,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 7
+      },
+      "assists": 1,
+      "points": 12
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 752,
+        "name": "Vanderbilt Jarred"
+      },
+      "type": "starters",
+      "minutes": "20:55",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 3,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 7
+      },
+      "assists": 1,
+      "points": 6
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 745,
+        "name": "Davis Anthony"
+      },
+      "type": "starters",
+      "minutes": "12:45",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 3,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 5
+      },
+      "assists": 0,
+      "points": 15
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 743,
+        "name": "Russell D&apos;Angelo"
+      },
+      "type": "starters",
+      "minutes": "15:46",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 3,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 1,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 1
+      },
+      "assists": 5,
+      "points": 15
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 744,
+        "name": "Vincent Gabe"
+      },
+      "type": "starters",
+      "minutes": "20:17",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 4,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 1
+      },
+      "assists": 4,
+      "points": 7
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 733,
+        "name": "Castleton Colin"
+      },
+      "type": "bench",
+      "minutes": "8:22",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 5
+      },
+      "assists": 0,
+      "points": 3
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 737,
+        "name": "Christie Max"
+      },
+      "type": "bench",
+      "minutes": "24:47",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 4,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 1,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 2
+      },
+      "assists": 1,
+      "points": 15
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 613,
+        "name": "Fudge Alex"
+      },
+      "type": "bench",
+      "minutes": "8:22",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 1
+      },
+      "assists": 0,
+      "points": 2
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 735,
+        "name": "Hayes Jaxson"
+      },
+      "type": "bench",
+      "minutes": "15:00",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 3,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 2
+      },
+      "assists": 3,
+      "points": 5
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 739,
+        "name": "Hodge D&apos;Moi"
+      },
+      "type": "bench",
+      "minutes": "8:22",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 2,
+        "attempts": 6,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 2
+      },
+      "assists": 0,
+      "points": 8
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 740,
+        "name": "Hood-Schifino Jalen"
+      },
+      "type": "bench",
+      "minutes": "23:23",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 1,
+        "attempts": 4,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 6
+      },
+      "assists": 2,
+      "points": 7
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 749,
+        "name": "Lewis Maxwell"
+      },
+      "type": "bench",
+      "minutes": "10:07",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 2,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 0
+      },
+      "assists": 1,
+      "points": 5
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 750,
+        "name": "Prince Taurean"
+      },
+      "type": "bench",
+      "minutes": "12:53",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 3,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 1
+      },
+      "assists": 0,
+      "points": 2
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 751,
+        "name": "Reddish Cameron"
+      },
+      "type": "bench",
+      "minutes": "18:12",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 3,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 2
+      },
+      "assists": 2,
+      "points": 1
+    },
+    {
+      "game": {
+        "id": 372188
+      },
+      "team": {
+        "id": 145
+      },
+      "player": {
+        "id": 736,
+        "name": "Wood Christian"
+      },
+      "type": "bench",
+      "minutes": "19:33",
+      "field_goals": {
+        "total": 0,
+        "attempts": 0,
+        "percentage": null
+      },
+      "threepoint_goals": {
+        "total": 0,
+        "attempts": 1,
+        "percentage": null
+      },
+      "freethrows_goals": {
+        "total": 1,
+        "attempts": 2,
+        "percentage": null
+      },
+      "rebounds": {
+        "total": 4
+      },
+      "assists": 1,
+      "points": 5
+    }
+  ]
+}

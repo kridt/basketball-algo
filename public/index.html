@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Value Bets - Basketball Probability Algorithm</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0f0f1e;
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            opacity: 0.8;
+            color: #b0b0c0;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid #2a2a3e;
+        }
+
+        .scan-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .scan-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .scan-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #667eea;
+        }
+
+        .spinner {
+            border: 4px solid #2a2a3e;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        thead th {
+            background: #16162a;
+            color: #999;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+        }
+
+        thead th:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        thead th:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        tbody tr {
+            background: #16162a;
+            transition: all 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #1a1a35;
+            transform: scale(1.01);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        tbody td {
+            padding: 18px 15px;
+            border: none;
+        }
+
+        tbody tr td:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        tbody tr td:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .player-name {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #fff;
+        }
+
+        .team-info {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 4px;
+        }
+
+        .matchup {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .stat-badge {
+            background: #667eea22;
+            color: #667eea;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+
+        .bet-over {
+            color: #4ade80;
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+
+        .bet-under {
+            color: #f87171;
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+
+        .line-info {
+            color: #999;
+            font-size: 0.95em;
+        }
+
+        .odds-value {
+            color: #fbbf24;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .bookmaker-badge {
+            background: #2a2a3e;
+            color: #b0b0c0;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .ev-high {
+            color: #4ade80;
+            font-weight: 700;
+            font-size: 1.3em;
+        }
+
+        .ev-medium {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .ev-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .ev-indicator.high {
+            background: #4ade80;
+            box-shadow: 0 0 10px #4ade80;
+        }
+
+        .ev-indicator.medium {
+            background: #fbbf24;
+            box-shadow: 0 0 10px #fbbf24;
+        }
+
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .stats-count {
+            color: #4ade80;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        .last-scan {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+        }
+
+        .empty-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-text {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 0.85em;
+            }
+
+            tbody td {
+                padding: 12px 8px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .tagline {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔥 NBA Value Bets</h1>
+            <p class="tagline">Real-Time Expected Value Analysis Across Multiple Bookmakers</p>
+            <button class="scan-button" id="scan-button" onclick="scanForValueBets()">
+                🎯 Scan for Value Bets
+            </button>
+        </header>
+
+        <div id="loading" class="card loading" style="display: none;">
+            <div class="spinner"></div>
+            <p style="font-size: 1.2em; font-weight: 600;">Analyzing all players and upcoming games...</p>
+            <p style="margin-top: 10px; opacity: 0.7;">This may take a minute</p>
+        </div>
+
+        <div id="results-container" style="display: none;">
+            <div class="card">
+                <div class="stats-header">
+                    <div>
+                        <h2 style="color: #e0e0e0; margin-bottom: 5px;">Value Opportunities</h2>
+                        <span class="stats-count" id="bet-count">0 bets found</span>
+                    </div>
+                    <div class="last-scan" id="last-scan"></div>
+                </div>
+
+                <div id="results-table"></div>
+            </div>
+        </div>
+
+        <div id="empty-state" class="card empty-state">
+            <div class="empty-icon">🏀</div>
+            <div class="empty-text">Click "Scan for Value Bets" to analyze all players</div>
+            <p style="margin-top: 10px; opacity: 0.7;">We'll check odds from Bet365 and Kambi to find the best opportunities</p>
+        </div>
+    </div>
+
+    <script>
+        let valueBets = [];
+        let eventSource = null;
+
+        function scanForValueBets() {
+            const button = document.getElementById('scan-button');
+            const loading = document.getElementById('loading');
+            const resultsContainer = document.getElementById('results-container');
+            const emptyState = document.getElementById('empty-state');
+            const betCount = document.getElementById('bet-count');
+            const loadingText = loading.querySelector('p:first-of-type');
+
+            // Reset state
+            valueBets = [];
+            button.disabled = true;
+            button.textContent = '⏳ Scanning...';
+            loading.style.display = 'block';
+            resultsContainer.style.display = 'none';
+            emptyState.style.display = 'none';
+
+            // Close existing connection
+            if (eventSource) {
+                eventSource.close();
+            }
+
+            // Start streaming
+            eventSource = new EventSource('/api/value-bets?minEV=0.05');
+
+            eventSource.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+
+                if (message.type === 'bet') {
+                    // New bet found!
+                    valueBets.push(message.data);
+
+                    // Sort by EV
+                    valueBets.sort((a, b) => b.evRaw - a.evRaw);
+
+                    // Update display immediately
+                    displayBets();
+
+                    // Show results container
+                    loading.style.display = 'none';
+                    resultsContainer.style.display = 'block';
+
+                } else if (message.type === 'progress') {
+                    // Update progress
+                    loadingText.textContent = `Analyzing ${message.player}... (${message.processed}/${message.total})`;
+                    betCount.textContent = `${valueBets.length} bet${valueBets.length !== 1 ? 's' : ''} found so far`;
+
+                } else if (message.type === 'complete') {
+                    // Scan complete
+                    eventSource.close();
+                    button.textContent = '🔄 Rescan';
+                    button.disabled = false;
+                    loading.style.display = 'none';
+
+                    if (valueBets.length === 0) {
+                        resultsContainer.style.display = 'none';
+                        emptyState.style.display = 'block';
+                    } else {
+                        resultsContainer.style.display = 'block';
+                    }
+
+                } else if (message.type === 'error') {
+                    eventSource.close();
+                    console.error('Scan error:', message.message);
+                    alert('Error scanning: ' + message.message);
+                    button.textContent = '🎯 Scan for Value Bets';
+                    button.disabled = false;
+                    loading.style.display = 'none';
+                    emptyState.style.display = 'block';
+                }
+            };
+
+            eventSource.onerror = (error) => {
+                console.error('EventSource error:', error);
+                eventSource.close();
+                button.textContent = '🎯 Scan for Value Bets';
+                button.disabled = false;
+                loading.style.display = 'none';
+
+                if (valueBets.length === 0) {
+                    emptyState.style.display = 'block';
+                }
+            };
+        }
+
+        function displayBets() {
+            const betCount = document.getElementById('bet-count');
+            const lastScan = document.getElementById('last-scan');
+            const resultsTable = document.getElementById('results-table');
+
+            betCount.textContent = `${valueBets.length} bet${valueBets.length !== 1 ? 's' : ''} found`;
+            lastScan.textContent = `Scanned at ${new Date().toLocaleTimeString()}`;
+
+            const tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Player & Matchup</th>
+                            <th>Market</th>
+                            <th>Bet & Line</th>
+                            <th>Odds</th>
+                            <th>Expected Value</th>
+                            <th>Probability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${valueBets.map(bet => {
+                            const evPercent = parseFloat(bet.ev);
+                            const evClass = evPercent > 10 ? 'ev-high' : 'ev-medium';
+                            const evIndicator = evPercent > 10 ? 'high' : 'medium';
+                            const betClass = bet.bet === 'OVER' ? 'bet-over' : 'bet-under';
+                            const location = bet.isHome ? 'vs' : '@';
+
+                            return `
+                                <tr>
+                                    <td>
+                                        <div class="player-name">${bet.player}</div>
+                                        <div class="team-info">${bet.team}</div>
+                                        <div class="matchup">${location} ${bet.opponent}</div>
+                                    </td>
+                                    <td>
+                                        <div class="stat-badge">${bet.statType}</div>
+                                    </td>
+                                    <td>
+                                        <div class="${betClass}">${bet.bet} ${bet.line}</div>
+                                        <div class="line-info">Proj: ${bet.projection}</div>
+                                    </td>
+                                    <td>
+                                        <div class="odds-value">${bet.odds}</div>
+                                        <div class="bookmaker-badge">${bet.bookmaker}</div>
+                                    </td>
+                                    <td>
+                                        <div class="${evClass}">
+                                            <span class="ev-indicator ${evIndicator}"></span>${bet.ev}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style="color: #4ade80; font-weight: 600;">Ours: ${bet.ourProbability}</div>
+                                        <div style="color: #999; font-size: 0.9em;">Implied: ${bet.impliedProbability}</div>
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            resultsTable.innerHTML = tableHTML;
+        }
+
+        // Auto-scan on page load after a short delay
+        setTimeout(() => {
+            scanForValueBets();
+        }, 500);
+    </script>
+</body>
+</html>

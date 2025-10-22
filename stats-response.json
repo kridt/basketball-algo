@@ -1,0 +1,105 @@
+{
+  "get": "statistics",
+  "parameters": {
+    "league": "12",
+    "season": "2023-2024",
+    "team": "145"
+  },
+  "errors": [],
+  "results": 5,
+  "response": {
+    "country": {
+      "id": 5,
+      "name": "USA",
+      "code": "US",
+      "flag": "https://media.api-sports.io/flags/us.svg"
+    },
+    "league": {
+      "id": 12,
+      "name": "NBA",
+      "type": "League",
+      "season": "2023-2024",
+      "logo": "https://media.api-sports.io/basketball/leagues/12.png"
+    },
+    "team": {
+      "id": 145,
+      "name": "Los Angeles Lakers",
+      "logo": "https://media.api-sports.io/basketball/teams/145.png"
+    },
+    "games": {
+      "played": {
+        "home": 47,
+        "away": 45,
+        "all": 92
+      },
+      "wins": {
+        "home": {
+          "total": 29,
+          "percentage": "0.617"
+        },
+        "away": {
+          "total": 20,
+          "percentage": "0.444"
+        },
+        "all": {
+          "total": 49,
+          "percentage": "0.533"
+        }
+      },
+      "draws": {
+        "home": {
+          "total": 0,
+          "percentage": "0.000"
+        },
+        "away": {
+          "total": 0,
+          "percentage": "0.000"
+        },
+        "all": {
+          "total": 0,
+          "percentage": "0.000"
+        }
+      },
+      "loses": {
+        "home": {
+          "total": 18,
+          "percentage": "0.383"
+        },
+        "away": {
+          "total": 25,
+          "percentage": "0.556"
+        },
+        "all": {
+          "total": 43,
+          "percentage": "0.467"
+        }
+      }
+    },
+    "points": {
+      "for": {
+        "total": {
+          "home": 5544,
+          "away": 5206,
+          "all": 10750
+        },
+        "average": {
+          "home": "118.0",
+          "away": "115.7",
+          "all": "116.8"
+        }
+      },
+      "against": {
+        "total": {
+          "home": 5428,
+          "away": 5371,
+          "all": 10799
+        },
+        "average": {
+          "home": "115.5",
+          "away": "119.4",
+          "all": "117.4"
+        }
+      }
+    }
+  }
+}

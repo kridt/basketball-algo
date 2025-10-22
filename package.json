@@ -1,0 +1,41 @@
+{
+  "name": "basketball-probability-algorithm",
+  "version": "1.0.0",
+  "description": "Basketball player prop probability calculator with hybrid statistical and ML approach",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "predict": "node src/cli.js",
+    "collect": "node src/collect-with-team.js",
+    "collect-all": "node src/collect-all-nba.js",
+    "train": "node src/train-model.js",
+    "web": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "basketball",
+    "probability",
+    "sports-betting",
+    "player-props",
+    "machine-learning"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "lowdb": "^7.0.1",
+    "mathjs": "^12.0.0",
+    "simple-statistics": "^7.8.3",
+    "regression": "^2.0.1",
+    "commander": "^11.1.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1",
+    "table": "^6.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

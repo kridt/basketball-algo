@@ -1,0 +1,58 @@
+{
+  "id": 372188,
+  "date": "2023-10-08T00:30:00+00:00",
+  "time": "00:30",
+  "timestamp": 1696725000,
+  "timezone": "UTC",
+  "stage": null,
+  "week": null,
+  "venue": "Chase Center",
+  "status": {
+    "long": "Game Finished",
+    "short": "FT",
+    "timer": null
+  },
+  "league": {
+    "id": 12,
+    "name": "NBA",
+    "type": "League",
+    "season": "2023-2024",
+    "logo": "https://media.api-sports.io/basketball/leagues/12.png"
+  },
+  "country": {
+    "id": 5,
+    "name": "USA",
+    "code": "US",
+    "flag": "https://media.api-sports.io/flags/us.svg"
+  },
+  "teams": {
+    "home": {
+      "id": 141,
+      "name": "Golden State Warriors",
+      "logo": "https://media.api-sports.io/basketball/teams/141.png"
+    },
+    "away": {
+      "id": 145,
+      "name": "Los Angeles Lakers",
+      "logo": "https://media.api-sports.io/basketball/teams/145.png"
+    }
+  },
+  "scores": {
+    "home": {
+      "quarter_1": 29,
+      "quarter_2": 32,
+      "quarter_3": 34,
+      "quarter_4": 30,
+      "over_time": null,
+      "total": 125
+    },
+    "away": {
+      "quarter_1": 23,
+      "quarter_2": 31,
+      "quarter_3": 29,
+      "quarter_4": 25,
+      "over_time": null,
+      "total": 108
+    }
+  }
+}
