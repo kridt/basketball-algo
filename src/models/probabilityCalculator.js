@@ -14,7 +14,7 @@ class ProbabilityCalculator {
     console.log(`\nCalculating probability for ${playerName} ${propType} ${line}...`);
 
     // Load or collect player data
-    let playerData = dataCollector.loadPlayerDataByName(playerName);
+    let playerData = await dataCollector.loadPlayerDataByName(playerName);
 
     if (!playerData) {
       console.log('Player data not found locally. Collecting from API...');

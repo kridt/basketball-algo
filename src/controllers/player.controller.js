@@ -1,12 +1,10 @@
 import dataCollector from '../services/dataCollector.js';
+import storageService from '../services/storageService.js';
 import apiService from '../services/apiService.js';
 import { sendSuccess, sendError, sendNotFound } from '../utils/response.js';
 import { HTTP_STATUS, ERROR_MESSAGES, API_CONFIG } from '../config/constants.js';
 import { SEASONS } from '../config/constants.js';
 import logger from '../utils/logger.js';
-import fs from 'fs';
-import path from 'path';
-import config from '../config/env.js';
 
 export const collect = async (req, res, next) => {
   try {
@@ -66,7 +64,7 @@ export const collect = async (req, res, next) => {
       lastUpdated: new Date().toISOString(),
     };
 
-    dataCollector.savePlayerData(player.id, playerData);
+    await dataCollector.savePlayerData(player.id, playerData);
 
     return sendSuccess(res, {
       player: playerData.player.name,
@@ -82,16 +80,10 @@ export const collect = async (req, res, next) => {
 
 export const getAllPlayers = async (req, res, next) => {
   try {
-    const dataDir = config.dataDir;
+    const playersList = await storageService.listAllPlayers();
 
-    if (!fs.existsSync(dataDir)) {
-      return sendSuccess(res, { players: [] });
-    }
-
-    const files = fs.readdirSync(dataDir).filter(f => f.startsWith('player_') && f.endsWith('.json'));
-
-    const players = files.map(file => {
-      const data = JSON.parse(fs.readFileSync(path.join(dataDir, file), 'utf8'));
+    const players = playersList.map(item => {
+      const data = item.data;
       const latestSeason = data.seasons && data.seasons.length > 0 ? data.seasons[data.seasons.length - 1] : null;
       return {
         id: data.player.id,
@@ -112,7 +104,7 @@ export const getAllPlayers = async (req, res, next) => {
 
 export const getPlayer = async (req, res, next) => {
   try {
-    const playerData = dataCollector.loadPlayerDataByName(req.params.name);
+    const playerData = await dataCollector.loadPlayerDataByName(req.params.name);
 
     if (!playerData) {
       return sendNotFound(res, ERROR_MESSAGES.NO_PLAYER_DATA);

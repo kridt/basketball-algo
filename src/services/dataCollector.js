@@ -1,4 +1,5 @@
 import apiService from './apiService.js';
+import storageService from './storageService.js';
 import fs from 'fs';
 import path from 'path';
 import config from '../config/env.js';
@@ -198,47 +199,24 @@ class DataCollector {
   }
 
   /**
-   * Save player data to file
+   * Save player data (uses Blob on Vercel, files locally)
    */
-  savePlayerData(playerId, data) {
-    // Ensure directory exists before writing
-    this.ensureDataDir();
-
-    const filename = path.join(this.dataDir, `player_${playerId}.json`);
-    try {
-      fs.writeFileSync(filename, JSON.stringify(data, null, 2));
-      logger.success(`Data saved to ${filename}`);
-    } catch (error) {
-      logger.error(`Error saving player data: ${error.message}`);
-      throw error;
-    }
+  async savePlayerData(playerId, data) {
+    return await storageService.savePlayerData(playerId, data);
   }
 
   /**
-   * Load player data from file
+   * Load player data (from Blob on Vercel, files locally)
    */
-  loadPlayerData(playerId) {
-    const filename = path.join(this.dataDir, `player_${playerId}.json`);
-    if (!fs.existsSync(filename)) {
-      return null;
-    }
-    return JSON.parse(fs.readFileSync(filename, 'utf8'));
+  async loadPlayerData(playerId) {
+    return await storageService.loadPlayerData(playerId);
   }
 
   /**
-   * Load player data by name (searches all player files)
+   * Load player data by name (searches all player files/blobs)
    */
-  loadPlayerDataByName(playerName) {
-    const files = fs.readdirSync(this.dataDir).filter(f => f.startsWith('player_'));
-    const nameLower = playerName.toLowerCase();
-
-    for (const file of files) {
-      const data = JSON.parse(fs.readFileSync(path.join(this.dataDir, file), 'utf8'));
-      if (data.player.name.toLowerCase().includes(nameLower)) {
-        return data;
-      }
-    }
-    return null;
+  async loadPlayerDataByName(playerName) {
+    return await storageService.loadPlayerDataByName(playerName);
   }
 
   /**
