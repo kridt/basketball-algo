@@ -23,9 +23,9 @@ const config = {
   recentGamesWeight: parseFloat(process.env.RECENT_GAMES_WEIGHT || '0.6'),
   minGamesForPrediction: parseInt(process.env.MIN_GAMES_FOR_PREDICTION || '10', 10),
 
-  // Paths
-  dataDir: path.join(process.cwd(), 'data'),
-  cacheDir: path.join(process.cwd(), 'data', 'cache'),
+  // Paths - use /tmp on Vercel (serverless), local paths otherwise
+  dataDir: process.env.VERCEL ? '/tmp/data' : path.join(process.cwd(), 'data'),
+  cacheDir: process.env.VERCEL ? '/tmp/cache' : path.join(process.cwd(), 'data', 'cache'),
   publicDir: path.join(process.cwd(), 'public'),
 
   // Feature flags

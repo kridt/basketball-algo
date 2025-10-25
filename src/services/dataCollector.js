@@ -10,9 +10,21 @@ class DataCollector {
     this.playersFile = path.join(this.dataDir, 'players.json');
     this.gamesFile = path.join(this.dataDir, 'games.json');
 
-    // Ensure data directory exists
-    if (!fs.existsSync(this.dataDir)) {
-      fs.mkdirSync(this.dataDir, { recursive: true });
+    // Ensure data directory exists (safe for serverless)
+    this.ensureDataDir();
+  }
+
+  /**
+   * Safely ensure data directory exists
+   */
+  ensureDataDir() {
+    try {
+      if (!fs.existsSync(this.dataDir)) {
+        fs.mkdirSync(this.dataDir, { recursive: true });
+      }
+    } catch (error) {
+      // In serverless environments, /tmp may need creation
+      logger.warn(`Could not create data directory: ${error.message}`);
     }
   }
 
@@ -189,9 +201,17 @@ class DataCollector {
    * Save player data to file
    */
   savePlayerData(playerId, data) {
+    // Ensure directory exists before writing
+    this.ensureDataDir();
+
     const filename = path.join(this.dataDir, `player_${playerId}.json`);
-    fs.writeFileSync(filename, JSON.stringify(data, null, 2));
-    logger.success(`Data saved to ${filename}`);
+    try {
+      fs.writeFileSync(filename, JSON.stringify(data, null, 2));
+      logger.success(`Data saved to ${filename}`);
+    } catch (error) {
+      logger.error(`Error saving player data: ${error.message}`);
+      throw error;
+    }
   }
 
   /**

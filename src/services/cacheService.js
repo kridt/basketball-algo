@@ -8,9 +8,21 @@ class CacheService {
     this.cacheDir = config.cacheDir;
     this.cacheExpiry = config.cacheExpiryHours * 60 * 60 * 1000;
 
-    // Ensure cache directory exists
-    if (!fs.existsSync(this.cacheDir)) {
-      fs.mkdirSync(this.cacheDir, { recursive: true });
+    // Ensure cache directory exists (safe for serverless)
+    this.ensureCacheDir();
+  }
+
+  /**
+   * Safely ensure cache directory exists
+   */
+  ensureCacheDir() {
+    try {
+      if (!fs.existsSync(this.cacheDir)) {
+        fs.mkdirSync(this.cacheDir, { recursive: true });
+      }
+    } catch (error) {
+      // In serverless environments like Vercel, /tmp may need creation
+      logger.warn(`Could not create cache directory: ${error.message}`);
     }
   }
 
@@ -58,6 +70,9 @@ class CacheService {
    */
   set(key, data) {
     if (!config.enableCaching) return;
+
+    // Ensure directory exists before writing
+    this.ensureCacheDir();
 
     const cachePath = path.join(this.cacheDir, `${key}.json`);
 

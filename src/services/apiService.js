@@ -9,7 +9,7 @@ class APIService {
     this.baseUrl = config.apiSportsBaseUrl;
 
     if (!this.apiKey) {
-      throw new Error('API_SPORTS_KEY not found in environment variables');
+      logger.warn('API_SPORTS_KEY not found - API calls will fail');
     }
   }
 
@@ -17,6 +17,11 @@ class APIService {
    * Make API request with caching
    */
   async makeRequest(endpoint, params = {}, useCache = true) {
+    // Check if API key is configured
+    if (!this.apiKey) {
+      throw new Error('API_SPORTS_KEY is not configured. Please set it in environment variables.');
+    }
+
     const cacheKey = cacheService.getCacheKey(endpoint, params);
 
     // Check cache first
