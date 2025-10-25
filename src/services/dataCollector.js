@@ -1,10 +1,12 @@
 import apiService from './apiService.js';
 import fs from 'fs';
 import path from 'path';
+import config from '../config/env.js';
+import logger from '../utils/logger.js';
 
 class DataCollector {
   constructor() {
-    this.dataDir = path.join(process.cwd(), 'data');
+    this.dataDir = config.dataDir;
     this.playersFile = path.join(this.dataDir, 'players.json');
     this.gamesFile = path.join(this.dataDir, 'games.json');
 
@@ -18,7 +20,7 @@ class DataCollector {
    * Collect comprehensive player data for analysis
    */
   async collectPlayerData(playerName, seasons = ['2022-2023', '2023-2024', '2024-2025']) {
-    console.log(`\nCollecting data for ${playerName}...`);
+    logger.info(`Collecting data for ${playerName}...`);
 
     // Search for player
     const searchResults = await apiService.searchPlayer(playerName);
@@ -29,16 +31,16 @@ class DataCollector {
     const player = searchResults[0];
     const playerId = player.id;
 
-    console.log(`Found: ${player.name} (ID: ${playerId})`);
+    logger.info(`Found: ${player.name} (ID: ${playerId})`);
 
     // We need to get the player's team(s) to fetch their games
     // For NBA, we'll search for teams and try to find which team(s) the player played for
-    console.log('Finding player team(s)...');
+    logger.info('Finding player team(s)...');
 
     // Collect data for each season
     const seasonData = [];
     for (const season of seasons) {
-      console.log(`\nFetching ${season} season data...`);
+      logger.info(`Fetching ${season} season data...`);
       try {
         // Get NBA teams for this season
         const teams = await apiService.getTeams(12, season);  // 12 = NBA league ID
@@ -68,7 +70,7 @@ class DataCollector {
               const playerInGame = firstGameStats.find(p => p.player.id === playerId);
 
               if (playerInGame) {
-                console.log(`  Found player on team: ${team.name}`);
+                logger.info(`Found player on team: ${team.name}`);
                 foundTeam = team;
                 playerStats = await apiService.getPlayerGameLogs(playerId, team.id, season, 12);
                 break;
@@ -85,12 +87,12 @@ class DataCollector {
             team: foundTeam ? foundTeam.name : 'Unknown',
             games: this.parsePlayerStats(playerStats)
           });
-          console.log(`  ✓ Found ${playerStats.length} games`);
+          logger.success(`Found ${playerStats.length} games`);
         } else {
-          console.log(`  ✗ No data for ${season} (player not found on checked teams)`);
+          logger.warn(`No data for ${season} (player not found on checked teams)`);
         }
       } catch (error) {
-        console.log(`  ✗ Error fetching ${season}: ${error.message}`);
+        logger.error(`Error fetching ${season}: ${error.message}`);
       }
     }
 
@@ -189,7 +191,7 @@ class DataCollector {
   savePlayerData(playerId, data) {
     const filename = path.join(this.dataDir, `player_${playerId}.json`);
     fs.writeFileSync(filename, JSON.stringify(data, null, 2));
-    console.log(`\n✓ Data saved to ${filename}`);
+    logger.success(`Data saved to ${filename}`);
   }
 
   /**
@@ -295,7 +297,7 @@ class DataCollector {
    * Collect opponent defensive statistics
    */
   async collectOpponentDefenseStats(teamName, season = '2025') {
-    console.log(`\nCollecting defensive stats for ${teamName}...`);
+    logger.info(`Collecting defensive stats for ${teamName}...`);
 
     // This would require additional API calls to get team defensive statistics
     // For now, return a placeholder structure

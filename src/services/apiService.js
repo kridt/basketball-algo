@@ -1,24 +1,15 @@
 import axios from 'axios';
-import dotenv from 'dotenv';
-import fs from 'fs';
-import path from 'path';
-
-dotenv.config();
+import config from '../config/env.js';
+import cacheService from './cacheService.js';
+import logger from '../utils/logger.js';
 
 class APIService {
   constructor() {
-    this.apiKey = process.env.API_SPORTS_KEY;
-    this.baseUrl = process.env.API_SPORTS_BASE_URL || 'https://v1.basketball.api-sports.io';
-    this.cacheDir = path.join(process.cwd(), 'data', 'cache');
-    this.cacheExpiry = parseInt(process.env.CACHE_EXPIRY_HOURS || '24') * 60 * 60 * 1000;
+    this.apiKey = config.apiSportsKey;
+    this.baseUrl = config.apiSportsBaseUrl;
 
     if (!this.apiKey) {
       throw new Error('API_SPORTS_KEY not found in environment variables');
-    }
-
-    // Ensure cache directory exists
-    if (!fs.existsSync(this.cacheDir)) {
-      fs.mkdirSync(this.cacheDir, { recursive: true });
     }
   }
 
@@ -26,21 +17,19 @@ class APIService {
    * Make API request with caching
    */
   async makeRequest(endpoint, params = {}, useCache = true) {
-    const cacheKey = this.getCacheKey(endpoint, params);
-    const cachePath = path.join(this.cacheDir, `${cacheKey}.json`);
+    const cacheKey = cacheService.getCacheKey(endpoint, params);
 
     // Check cache first
-    if (useCache && fs.existsSync(cachePath)) {
-      const cached = JSON.parse(fs.readFileSync(cachePath, 'utf8'));
-      if (Date.now() - cached.timestamp < this.cacheExpiry) {
-        console.log(`Cache hit: ${endpoint}`);
-        return cached.data;
+    if (useCache) {
+      const cachedData = cacheService.get(cacheKey);
+      if (cachedData) {
+        return cachedData;
       }
     }
 
     // Make API request
     try {
-      console.log(`API request: ${endpoint}`, params);
+      logger.info(`API request: ${endpoint}`, params);
       const response = await axios.get(`${this.baseUrl}/${endpoint}`, {
         headers: {
           'x-rapidapi-key': this.apiKey,
@@ -51,28 +40,14 @@ class APIService {
 
       // Cache the response
       if (useCache) {
-        fs.writeFileSync(cachePath, JSON.stringify({
-          timestamp: Date.now(),
-          data: response.data
-        }));
+        cacheService.set(cacheKey, response.data);
       }
 
       return response.data;
     } catch (error) {
-      console.error(`API Error (${endpoint}):`, error.response?.data || error.message);
+      logger.error(`API Error (${endpoint}):`, error.response?.data || error.message);
       throw error;
     }
-  }
-
-  /**
-   * Generate cache key from endpoint and params
-   */
-  getCacheKey(endpoint, params) {
-    const paramStr = Object.keys(params)
-      .sort()
-      .map(key => `${key}=${params[key]}`)
-      .join('_');
-    return `${endpoint.replace(/\//g, '_')}_${paramStr}`.replace(/[^a-zA-Z0-9_]/g, '');
   }
 
   /**
@@ -176,7 +151,7 @@ class APIService {
       return [];
     }
 
-    console.log(`  Found ${games.length} team games, fetching player stats...`);
+    logger.info(`Found ${games.length} team games, fetching player stats...`);
 
     // Fetch player stats for each game
     const playerGameLogs = [];
@@ -200,11 +175,11 @@ class APIService {
         }
       } catch (error) {
         // Game might not have stats available (future games, cancelled, etc.)
-        console.log(`    Skipping game ${game.id}: ${error.message}`);
+        logger.debug(`Skipping game ${game.id}: ${error.message}`);
       }
     }
 
-    console.log(`  Retrieved stats for ${playerGameLogs.length} games where player participated`);
+    logger.info(`Retrieved stats for ${playerGameLogs.length} games where player participated`);
     return playerGameLogs;
   }
 
