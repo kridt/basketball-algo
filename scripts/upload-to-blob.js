@@ -21,6 +21,22 @@ const __dirname = path.dirname(__filename);
 
 const dataDir = path.join(__dirname, '..', 'data');
 
+// Recursively get all files from a directory
+function getAllFiles(dirPath, arrayOfFiles = []) {
+  const files = fs.readdirSync(dirPath);
+
+  files.forEach(file => {
+    const fullPath = path.join(dirPath, file);
+    if (fs.statSync(fullPath).isDirectory()) {
+      arrayOfFiles = getAllFiles(fullPath, arrayOfFiles);
+    } else {
+      arrayOfFiles.push(fullPath);
+    }
+  });
+
+  return arrayOfFiles;
+}
+
 async function uploadPlayerFiles() {
   console.log('🏀 Basketball Algorithm - Upload to Vercel Blob\n');
 
@@ -37,61 +53,59 @@ async function uploadPlayerFiles() {
   // Check if data directory exists
   if (!fs.existsSync(dataDir)) {
     console.error(`❌ Error: Data directory not found: ${dataDir}`);
-    console.log('\nNo player data files to upload.');
+    console.log('\nNo data files to upload.');
     process.exit(1);
   }
 
-  // Get all player JSON files
-  const files = fs.readdirSync(dataDir).filter(f => f.startsWith('player_') && f.endsWith('.json'));
+  // Get all JSON files recursively
+  const allFiles = getAllFiles(dataDir);
+  const files = allFiles.filter(f => f.endsWith('.json'));
 
   if (files.length === 0) {
-    console.log('⚠️  No player data files found in data/ directory');
-    console.log('\nCollect some player data first using:');
+    console.log('⚠️  No data files found in data/ directory');
+    console.log('\nCollect some data first using:');
     console.log('  npm run collect -- --player "LeBron James" --team "Lakers"\n');
     process.exit(0);
   }
 
-  console.log(`Found ${files.length} player file(s) to upload\n`);
+  console.log(`Found ${files.length} file(s) to upload\n`);
 
   let uploaded = 0;
   let skipped = 0;
   let errors = 0;
 
-  for (const file of files) {
-    const filepath = path.join(dataDir, file);
+  for (const filepath of files) {
     const content = fs.readFileSync(filepath, 'utf8');
+    // Get relative path from data directory to preserve structure
+    const relativePath = path.relative(dataDir, filepath).replace(/\\/g, '/');
 
     try {
       // Check if file already exists in Blob
       let exists = false;
       try {
-        const { blobs } = await list({ prefix: file.replace('.json', ''), limit: 1 });
+        const { blobs } = await list({ prefix: relativePath.replace('.json', ''), limit: 1 });
         exists = blobs.length > 0;
       } catch (error) {
         // File doesn't exist
       }
 
       if (exists) {
-        console.log(`⏭️  Skipped: ${file} (already exists)`);
+        console.log(`⏭️  Skipped: ${relativePath} (already exists)`);
         skipped++;
         continue;
       }
 
-      // Upload to Blob
-      const blob = await put(file, content, {
+      // Upload to Blob with relative path to maintain structure
+      const blob = await put(relativePath, content, {
         access: 'public',
         contentType: 'application/json',
       });
 
-      // Parse to get player name
-      const data = JSON.parse(content);
-      const playerName = data.player?.name || 'Unknown';
-
-      console.log(`✅ Uploaded: ${playerName} (${file})`);
+      console.log(`✅ Uploaded: ${relativePath}`);
       console.log(`   URL: ${blob.url}\n`);
       uploaded++;
     } catch (error) {
-      console.error(`❌ Error uploading ${file}: ${error.message}\n`);
+      console.error(`❌ Error uploading ${relativePath}: ${error.message}\n`);
       errors++;
     }
   }
@@ -104,7 +118,7 @@ async function uploadPlayerFiles() {
   console.log(`   📁 Total:    ${files.length}\n`);
 
   if (uploaded > 0) {
-    console.log('🎉 Player data successfully uploaded to Vercel Blob!');
+    console.log('🎉 Data successfully uploaded to Vercel Blob!');
     console.log('\nYour data is now persistent and will survive deployments.\n');
   }
 }

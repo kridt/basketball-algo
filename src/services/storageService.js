@@ -3,9 +3,9 @@ import path from 'path';
 import config from '../config/env.js';
 import logger from '../utils/logger.js';
 
-// Conditional import for Vercel Blob (only on production)
+// Conditional import for Vercel Blob (works both on Vercel and locally with token)
 let blobModule = null;
-if (process.env.VERCEL && process.env.BLOB_READ_WRITE_TOKEN) {
+if (process.env.BLOB_READ_WRITE_TOKEN) {
   try {
     blobModule = await import('@vercel/blob');
     logger.info('Vercel Blob storage initialized');
@@ -20,7 +20,7 @@ if (process.env.VERCEL && process.env.BLOB_READ_WRITE_TOKEN) {
  */
 class StorageService {
   constructor() {
-    this.useBlob = process.env.VERCEL && blobModule !== null;
+    this.useBlob = blobModule !== null && process.env.BLOB_READ_WRITE_TOKEN !== undefined;
     this.dataDir = config.dataDir;
 
     if (!this.useBlob) {

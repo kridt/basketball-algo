@@ -6,6 +6,7 @@ import logger from '../utils/logger.js';
 import fs from 'fs';
 import path from 'path';
 import config from '../config/env.js';
+import blobStorage from '../services/blobStorage.js';
 
 export const getNextMatch = async (req, res, next) => {
   try {
@@ -35,14 +36,30 @@ export const getValueBets = async (req, res, next) => {
     const minEV = parseFloat(req.query.minEV) || 0.05;
     logger.info(`Scanning for value bets with min EV: ${(minEV * 100).toFixed(0)}%`);
 
-    const dataDir = config.dataDir;
+    // Try to read from Vercel Blob first, fallback to local filesystem
+    let playerFiles = [];
+    let isUsingBlob = false;
 
-    if (!fs.existsSync(dataDir)) {
-      return sendSuccess(res, { valueBets: [], message: 'No player data found' });
+    try {
+      if (process.env.BLOB_READ_WRITE_TOKEN) {
+        playerFiles = await blobStorage.listPlayerFiles();
+        isUsingBlob = true;
+        logger.info(`Using Vercel Blob - found ${playerFiles.length} players`);
+      }
+    } catch (error) {
+      logger.warn('Failed to read from Vercel Blob, falling back to local files:', error.message);
     }
 
-    const files = fs.readdirSync(dataDir).filter(f => f.startsWith('player_') && f.endsWith('.json'));
-    logger.info(`Found ${files.length} players to analyze`);
+    // Fallback to local filesystem if blob failed or not available
+    if (!isUsingBlob) {
+      const dataDir = config.dataDir;
+      if (!fs.existsSync(dataDir)) {
+        return sendSuccess(res, { valueBets: [], message: 'No player data found' });
+      }
+      const files = fs.readdirSync(dataDir).filter(f => f.startsWith('player_') && f.endsWith('.json'));
+      playerFiles = files.map(f => ({ pathname: f }));
+      logger.info(`Using local files - found ${playerFiles.length} players`);
+    }
 
     // Set up Server-Sent Events
     res.setHeader('Content-Type', 'text/event-stream');
@@ -52,8 +69,16 @@ export const getValueBets = async (req, res, next) => {
     const statTypes = ['points', 'rebounds', 'assists'];
     let processedCount = 0;
 
-    for (const file of files) {
-      const playerData = JSON.parse(fs.readFileSync(path.join(dataDir, file), 'utf8'));
+    for (const playerFile of playerFiles) {
+      let playerData;
+
+      // Read player data based on source
+      if (isUsingBlob) {
+        playerData = await blobStorage.getPlayerData(playerFile.url);
+      } else {
+        playerData = JSON.parse(fs.readFileSync(path.join(config.dataDir, playerFile.pathname), 'utf8'));
+      }
+
       const playerName = playerData.player.name;
 
       // Get latest team
@@ -167,7 +192,7 @@ export const getValueBets = async (req, res, next) => {
       res.write(`data: ${JSON.stringify({
         type: 'progress',
         processed: processedCount,
-        total: files.length,
+        total: playerFiles.length,
         player: playerName,
       })}\n\n`);
     }

@@ -28,6 +28,7 @@ git push
 Wait 1-2 minutes for Vercel to deploy.
 
 ✅ **Test it works:**
+
 ```bash
 curl https://basketball-algo.vercel.app/api/health
 ```
@@ -39,12 +40,14 @@ curl https://basketball-algo.vercel.app/api/health
 ### Option A: Upload Script (if you have local files)
 
 1. **Get your Blob token:**
+
    - Vercel Dashboard → Storage → Blob → Click **"Copy Token"**
 
 2. **Set the token locally:**
+
    ```powershell
    # Windows PowerShell
-   $env:BLOB_READ_WRITE_TOKEN="paste_token_here"
+   $env:BLOB_READ_WRITE_TOKEN="vercel_blob_rw_gKFmaIzpYOB3x2qB_Du8KLFzgk5TblYqyKJsv6j8hmHMTtW"
    ```
 
 3. **Run upload:**
@@ -53,6 +56,7 @@ curl https://basketball-algo.vercel.app/api/health
    ```
 
 **Expected output:**
+
 ```
 ✅ Uploaded: LeBron James (player_123.json)
 ✅ Uploaded: Stephen Curry (player_456.json)
@@ -63,7 +67,7 @@ curl https://basketball-algo.vercel.app/api/health
 ### Option B: Collect Fresh Data (if starting from scratch)
 
 ```bash
-curl -X POST https://basketball-algo.vercel.app/api/collect \
+curl -5X POST https://basketball-algo.vercel.app/api/collect \
   -H "Content-Type: application/json" \
   -d '{
     "playerName": "LeBron James",
@@ -83,6 +87,7 @@ curl https://basketball-algo.vercel.app/api/players
 ```
 
 **Should return your players:**
+
 ```json
 {
   "success": true,
@@ -103,6 +108,7 @@ curl https://basketball-algo.vercel.app/api/players
 Your data is now persistent and will survive deployments!
 
 **What's different:**
+
 - Before: Data lost on every deployment ❌
 - After: Data persists forever ✅
 

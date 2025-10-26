@@ -95,7 +95,10 @@ export const getAllPlayers = async (req, res, next) => {
       };
     });
 
-    return sendSuccess(res, { players });
+    return sendSuccess(res, {
+      count: players.length,
+      players
+    });
   } catch (error) {
     logger.error('Error loading players:', error);
     next(error);

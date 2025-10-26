@@ -302,6 +302,7 @@
         <header>
             <h1>🔥 NBA Value Bets</h1>
             <p class="tagline">Real-Time Expected Value Analysis Across Multiple Bookmakers</p>
+            <p class="tagline" id="player-count-display" style="color: #667eea; font-size: 1.1em;">Loading player database...</p>
             <button class="scan-button" id="scan-button" onclick="scanForValueBets()">
                 🎯 Scan for Value Bets
             </button>
@@ -486,6 +487,24 @@
 
             resultsTable.innerHTML = tableHTML;
         }
+
+        // Fetch and display player count
+        async function loadPlayerCount() {
+            try {
+                const response = await fetch('/api/players');
+                const data = await response.json();
+                const count = data.data.count || 0;
+                const display = document.getElementById('player-count-display');
+                display.textContent = `📊 Tracking ${count} NBA players`;
+            } catch (error) {
+                console.error('Error loading player count:', error);
+                const display = document.getElementById('player-count-display');
+                display.textContent = '📊 Player database ready';
+            }
+        }
+
+        // Load player count on page load
+        loadPlayerCount();
 
         // Auto-scan on page load after a short delay
         setTimeout(() => {
