@@ -39,7 +39,18 @@ const startServer = () => {
 };
 
 // Only start if running locally (not on Vercel serverless)
-if (import.meta.url === `file://${process.argv[1]}` && !process.env.VERCEL) {
+// Cross-platform check for main module
+const isMainModule = () => {
+  try {
+    const argPath = process.argv[1].replace(/\\/g, '/');
+    const metaPath = fileURLToPath(import.meta.url).replace(/\\/g, '/');
+    return metaPath.endsWith(argPath.split('/').pop());
+  } catch {
+    return false;
+  }
+};
+
+if (isMainModule() && !process.env.VERCEL) {
   startServer();
 }
 
